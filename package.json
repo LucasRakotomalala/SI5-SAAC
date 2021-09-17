@@ -1,0 +1,13 @@
+{
+    "name": "basic-web-app",
+    "version": "1.0.0",
+    "description": "Node.js Hello World",
+    "author": "Lucas Rakotomalala <lucas.rakotomalala@yahoo.fr>",
+    "main": "app.js",
+    "scripts": {
+        "start": "node app.js"
+    },
+    "engines": {
+        "node": "14.x"
+    }
+  }
