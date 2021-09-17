@@ -1,0 +1,28 @@
+version: "3.9"
+
+services:
+  web:
+    image: furbor/basic-web-app
+    container_name: "basic-web-app"
+    environment: 
+      - PORT=3001
+    ports:
+      - 3000:3001
+    restart: always
+    networks:
+      - basic-web-app_network
+  
+  database:
+    image: postgres:13.4
+    container_name: "postgres-db"
+    environment:
+      - POSTGRES_DB=td_1
+      - POSTGRES_USER=si5_sacc
+      - POSTGRES_PASSWORD=dev_password
+    restart: always
+    networks:
+      - basic-web-app_network
+
+networks:
+  basic-web-app_network:
+    driver: bridge
