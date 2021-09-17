@@ -4,11 +4,11 @@ import pg from 'pg';
 const { Pool } = pg;
 
 const pool = new Pool({
-  database: process.env.DB_HOST || 'td_1',
+  database: process.env.DB_NAME || 'td_1',
   user: process.env.DB_USER || 'si5_sacc',
   password: process.env.DB_PASSWORD ||'dev_password',
-  host: process.env.DB_URL || '127.0.0.1',
-  port: process.env.DB_PORT || 5432,
+  host: process.env.DB_HOST || '127.0.0.1',
+  port: process.env.Db_PORT || 5432,
 });
 
 export const incrementVisit = async (req, res) => {
