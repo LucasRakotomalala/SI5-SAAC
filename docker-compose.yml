@@ -3,23 +3,28 @@ version: "3.9"
 services:
   web:
     image: furbor/basic-web-app
-    container_name: "basic-web-app"
+    container_name: basic-web-app
     environment: 
-      - PORT=3001
+      #- PORT=3001
+      - DB_HOST=database
+      - DB_PORT=5432
     ports:
-      - 3000:3001
-    restart: always
+      #- 3001:3001
+      - 3001:3000
+    restart: unless-stopped
     networks:
       - basic-web-app_network
   
   database:
     image: postgres:13.4
-    container_name: "postgres-db"
+    container_name: postgres-db
     environment:
       - POSTGRES_DB=td_1
       - POSTGRES_USER=si5_sacc
       - POSTGRES_PASSWORD=dev_password
-    restart: always
+    volumes: 
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    restart: unless-stopped
     networks:
       - basic-web-app_network
 

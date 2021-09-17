@@ -4,11 +4,14 @@ WORKDIR /usr/src/app
 
 ENV PORT=3000
 
+ENV DB_HOST=localhost
+ENV DB_PORT=5432
+
 COPY package*.json ./
 
-RUN npm install
+COPY ./api ./api
 
-COPY ./api .
+RUN npm install
 
 EXPOSE $PORT
 

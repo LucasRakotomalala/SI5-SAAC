@@ -3,15 +3,17 @@
     "version": "1.0.0",
     "description": "Node.js Hello World",
     "author": "Lucas Rakotomalala <lucas.rakotomalala@yahoo.fr>",
-    "main": "app.js",
+    "main": "api/app.js",
     "type": "module",
     "scripts": {
-        "start": "node app.js"
+        "preinstall": "cd api",
+        "start": "node api/app.js"
     },
     "engines": {
         "node": "16.x"
     },
     "dependencies": {
+        "express": "^4.17.1",
         "pg": "^8.7.1"
     }
 }
