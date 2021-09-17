@@ -1,7 +1,7 @@
 'use strict';
 
-import pg_module from 'pg';
-const { Pool } = pg_module;
+import pg from 'pg';
+const { Pool } = pg;
 
 const pool = new Pool({
   database: 'td_1',
