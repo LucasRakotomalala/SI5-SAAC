@@ -4,8 +4,8 @@ WORKDIR /usr/src/app
 
 ENV PORT=3000
 
-ENV DB_HOST=localhost
-ENV DB_PORT=5432
+ENV DATABASE_URL=localhost
+ENV DATABASE_PORT=5432
 
 COPY package*.json ./
 
