@@ -6,11 +6,10 @@ services:
     container_name: basic-web-app
     environment: 
       #- PORT=3001
-      - DB_HOST=database
-      - DB_PORT=5432
+      - DATABASE_URL=postgresql://si5_sacc:dev_password@database:5432/td_1
     ports:
       #- 3001:3001
-      - 3001:3000
+      - 3000:3000
     restart: unless-stopped
     networks:
       - basic-web-app_network

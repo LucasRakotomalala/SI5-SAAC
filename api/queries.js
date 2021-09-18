@@ -1,36 +1,40 @@
 'use strict';
 
 import pg from 'pg';
+import { v4 as uuidv4 } from 'uuid';
+
 const { Pool } = pg;
 
 const pool = new Pool({
-  database: process.env.DB_NAME || 'td_1',
-  user: process.env.DB_USER || 'si5_sacc',
-  password: process.env.DB_PASSWORD ||'dev_password',
-  host: process.env.DB_HOST || '127.0.0.1',
-  port: process.env.Db_PORT || 5432,
-  ssl: {
+  connectionString: process.env.DATABASE_URL || 'postgresql://postgres:postgres@localhost:5432/dev',
+  ssl: (process.env.NODE_ENV !== 'production') ? false : {
     rejectUnauthorized: false
   }
 });
 
-export const incrementVisit = async (req, res) => {
-  // Update the visit counter
+const incrementVisit = async () => {
   try {
     await pool.query('UPDATE visits SET total = total + 1;');
   } catch (err) {
     throw err;
   }
+};
 
-  // console.log('Visit counter updated!');
-
-  // Retrieve the visit counter
+const retrieveTotalVisit = async () => {
   try {
-    const response = await pool.query('SELECT * FROM visits;');
-    res.writeHead(200, { 'Content-Type': 'text/plain' });
-    res.write(`Hello World! You're the ${response.rows[0].total} visitors!`);
-    res.end();
+    return await pool.query('SELECT * FROM visits;');
   } catch (err) {
     throw err;
   }
+};
+
+export const counter = async (req, res) => {
+  if (req.cookie?.uid)
+    await incrementVisit();
+  else
+    res.cookie('uid', uuidv4());
+  const response = await retrieveTotalVisit();
+  res.writeHead(200, { 'Content-Type': 'text/plain' });
+  res.write(`Hello World! You're the ${response.rows[0].total} visitors!`);
+  res.end();
 };

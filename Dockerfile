@@ -4,8 +4,7 @@ WORKDIR /usr/src/app
 
 ENV PORT=3000
 
-ENV DB_HOST=localhost
-ENV DB_PORT=5432
+ENV DATABASE_URL=postgresql://si5_sacc:dev_password@localhost:5432/td_1
 
 COPY package*.json ./
 

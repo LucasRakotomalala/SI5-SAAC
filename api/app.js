@@ -1,19 +1,22 @@
 'use strict';
 
 import express from 'express';
+import cookieParser from 'cookie-parser';
 
-import { incrementVisit } from './queries.js';
+import { counter } from './queries.js';
 
 const app = express();
+app.use(cookieParser());
+
 const port = process.env.PORT || 3000;
 
-app.get('/', (req, res) => {
+app.get('/', (_req, res) => {
   res.writeHead(200, { 'Content-Type': 'text/plain' });
-  res.write('Hello World!');
+  res.write('Hello from the other side!');
   res.end();
 });
 
-app.get('/counter', incrementVisit);
+app.get('/counter', (req, res) => counter(req, res));
 
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
