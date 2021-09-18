@@ -11,9 +11,7 @@ app.use(cookieParser());
 const port = process.env.PORT || 3000;
 
 app.get('/', (_req, res) => {
-  res.writeHead(200, { 'Content-Type': 'text/plain' });
-  res.write('Hello from the other side!');
-  res.end();
+  res.redirect('/counter');
 });
 
 app.get('/counter', (req, res) => counter(req, res));

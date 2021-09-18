@@ -35,6 +35,6 @@ export const counter = async (req, res) => {
   }
   const response = await retrieveTotalVisit();
   res.writeHead(200, { 'Content-Type': 'text/plain' });
-  res.write(`Hello World! You're the ${response.rows[0].total} visitors!`);
+  res.write(`Hello World! You're our ${response.rows[0].total} unique visitors!`);
   res.end();
 };
