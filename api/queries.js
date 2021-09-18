@@ -29,10 +29,10 @@ const retrieveTotalVisit = async () => {
 };
 
 export const counter = async (req, res) => {
-  if (!req.cookie.uid)
+  if (!req.cookies.uid) {
     await incrementVisit();
-  else
     res.cookie('uid', uuidv4());
+  }
   const response = await retrieveTotalVisit();
   res.writeHead(200, { 'Content-Type': 'text/plain' });
   res.write(`Hello World! You're the ${response.rows[0].total} visitors!`);
