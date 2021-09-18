@@ -29,7 +29,7 @@ const retrieveTotalVisit = async () => {
 };
 
 export const counter = async (req, res) => {
-  if (req.cookie?.uid)
+  if (!req.cookie?.uid)
     await incrementVisit();
   else
     res.cookie('uid', uuidv4());
