@@ -9,6 +9,9 @@ const pool = new Pool({
   password: process.env.DB_PASSWORD ||'dev_password',
   host: process.env.DB_HOST || '127.0.0.1',
   port: process.env.Db_PORT || 5432,
+  ssl: {
+    rejectUnauthorized: false
+  }
 });
 
 export const incrementVisit = async (req, res) => {
