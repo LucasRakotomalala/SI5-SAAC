@@ -1,31 +1,14 @@
 'use strict';
 
-import pg from 'pg';
 import { v4 as uuidv4 } from 'uuid';
-
-const { Pool } = pg;
-
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL || 'postgresql://postgres:postgres@localhost:5432/dev',
-  ssl: (process.env.NODE_ENV !== 'production') ? false : {
-    rejectUnauthorized: false
-  }
-});
+import { totalVisit } from './model.js';
 
 const incrementVisit = async () => {
-  try {
-    await pool.query('UPDATE visits SET total = total + 1;');
-  } catch (err) {
-    throw err;
-  }
+  await totalVisit.increment('total', { by: 1 });
 };
 
 const retrieveTotalVisit = async () => {
-  try {
-    return await pool.query('SELECT * FROM visits;');
-  } catch (err) {
-    throw err;
-  }
+  return await totalVisit.total;
 };
 
 export const counter = async (req, res) => {
@@ -33,8 +16,8 @@ export const counter = async (req, res) => {
     await incrementVisit();
     res.cookie('uid', uuidv4());
   }
-  const response = await retrieveTotalVisit();
+  const visitorsNumber = await retrieveTotalVisit();
   res.writeHead(200, { 'Content-Type': 'text/plain' });
-  res.write(`Hello World! You're our ${response.rows[0].total} unique visitors!`);
+  res.write(`Hello World! You're our ${visitorsNumber} unique visitors!`);
   res.end();
 };

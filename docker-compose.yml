@@ -2,6 +2,8 @@ version: "3.9"
 
 services:
   web:
+    build:
+      context: .
     image: furbor/basic-web-app
     container_name: basic-web-app
     environment: 
@@ -21,8 +23,6 @@ services:
       - POSTGRES_DB=td_1
       - POSTGRES_USER=si5_sacc
       - POSTGRES_PASSWORD=dev_password
-    volumes: 
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     restart: unless-stopped
     networks:
       - basic-web-app_network
