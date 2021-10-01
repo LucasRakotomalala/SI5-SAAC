@@ -1,4 +1,4 @@
-FROM node:16
+FROM node:16.3
 
 WORKDIR /usr/src/app
 
@@ -12,6 +12,10 @@ COPY ./api ./api
 
 RUN npm install
 
-EXPOSE $PORT
+# EXPOSE $PORT
+
+RUN useradd -m user
+
+USER user
 
 CMD [ "npm", "start" ]

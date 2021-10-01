@@ -3,7 +3,17 @@
 import seq from 'sequelize';
 const { Sequelize, DataTypes } = seq;
 
-const sequelize = new Sequelize(process.env.DATABASE_URL || 'postgresql://postgres:postgres@localhost:5432/dev');
+const sequelize = new Sequelize(process.env.DATABASE_URL || 'postgresql://postgres:postgres@localhost:5432/dev',
+{
+  dialect: 'postgres',
+  // ssl: process.env.NODE_ENV === 'production',
+  dialectOptions: {
+    ssl: (process.env.NODE_ENV !== 'production') ? false : {
+      'require': true,
+      'rejectUnauthorized': false
+    }
+  }
+});
 
 try {
     await sequelize.authenticate();
